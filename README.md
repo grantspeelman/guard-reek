@@ -1,4 +1,4 @@
-Guard::Reek  [![Build Status](https://travis-ci.org/gvillalta99/guard-reek.png?branch=master)](https://travis-ci.org/gvillalta99/guard-reek) [![Dependency Status](https://gemnasium.com/gvillalta99/guard-reek.png)](https://gemnasium.com/gvillalta99/guard-reek) [![Code Climate](https://codeclimate.com/github/gvillalta99/guard-reek.png)](https://codeclimate.com/github/gvillalta99/guard-reek) [![Coverage Status](https://coveralls.io/repos/gvillalta99/guard-reek/badge.png?branch=master)](https://coveralls.io/r/gvillalta99/guard-reek)
+Guard::Reek  [![Build Status](https://travis-ci.org/gvillalta99/guard-reek.png?branch=master)](https://travis-ci.org/gvillalta99/guard-reek) 
 =========================
 TODO: Write a gem description
 
