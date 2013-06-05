@@ -25,7 +25,72 @@ describe Guard::Reek do
     subject(:run_all) { guard.run_all }
 
     it "runs reek" do
-      guard.should_receive(:reek)
+      described_class.should_receive(:reek).with([])
+
+      run_all
+    end
+  end
+
+  describe "#run_on_changes" do
+    subject(:run_on_changes) { guard.run_on_changes "path" }
+
+    it "runs changed paths" do
+      described_class.should_receive(:reek).with("path")
+
+      run_on_changes
+    end
+  end
+
+  describe ".reek" do
+    before do
+      described_class.stub(:system)
+      described_class.stub(:command)
+      described_class.stub(:system).and_return(true)
+    end
+
+    subject(:reek) { described_class.reek("paths") }
+
+    it "calls the system" do
+      described_class.should_receive(:system)
+    end
+
+    it "calls the reek command" do
+      described_class.should_receive(:command).with("paths")
+    end
+
+    it "notifies guard the ddsuccess" do
+      described_class.should_receive(:notify)
+    end
+
+    after do
+      reek
+    end
+  end
+
+  describe ".command" do
+    subject(:command) { described_class.command ["path"] }
+    it { should =~ /-n/ }
+    it { should =~ /^reek/ }
+    it { should =~ /path$/ }
+  end
+
+  describe ".notify" do
+    context "well done" do
+      subject(:notify) { described_class.notify true }
+      it "notifies the success to notifier" do
+        Guard::Notifier.should_receive(:notify).with(*Guard::Reek::SUCCESS)
+
+        notify
+      end
+    end
+
+    context "something went wrong" do
+      subject(:notify) { described_class.notify false }
+      it "notifies the failure to notifier" do
+        Guard::Notifier.should_receive(:notify).with(*Guard::Reek::FAILED)
+
+        notify
+      end
     end
   end
 end
