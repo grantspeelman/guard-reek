@@ -16,3 +16,5 @@ matrix:
 notifications:
   recipients:
     - gvillalta99@gmail.com
+  webhooks: https://www.buildheroes.com/api/projects/13bfb2e0028c5838d6fd6a2b6445c4c32a4f26ca/builds
+
