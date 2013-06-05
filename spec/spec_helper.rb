@@ -1,3 +1,6 @@
+require 'coveralls'
+Coveralls.wear!
+
 ENV['RUBY_ENV'] ||= 'test'
 
 require 'simplecov'
