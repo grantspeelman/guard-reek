@@ -1,0 +1,3 @@
+guard 'reek' do
+  watch(%r{.+\.rb$})
+end

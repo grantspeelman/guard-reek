@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |gem|
   gem.name          = "guard-reek"
-  gem.version       = "0.0.2"
+  gem.version       = "0.0.3"
   gem.authors       = ["Gustavo Villalta"]
   gem.email         = ["gvillalta99@gmail.com"]
   gem.description   = %q{Guard::Reek automatically runs Reek when files change}
