@@ -19,15 +19,17 @@ module Guard
     end
 
     def start
-      UI.info "Guard::Reek is running"
+      UI.info('Guard::Reek is starting')
       run_all
     end
 
     def run_all
+      UI.info('Guard::Reek is running on all files')
       self.class.reek @files
     end
 
     def run_on_changes path
+      UI.info("Guard::Reek is running on #{path.to_s}")
       self.class.reek path
     end
 
