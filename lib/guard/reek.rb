@@ -28,7 +28,7 @@ module Guard
       self.class.reek @files
     end
 
-    def run_on_changes path
+    def run_on_modifications path
       UI.info("Guard::Reek is running on #{path.to_s}")
       self.class.reek path
     end
