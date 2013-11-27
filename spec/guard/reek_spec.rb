@@ -31,13 +31,13 @@ describe Guard::Reek do
     end
   end
 
-  describe "#run_on_changes" do
-    subject(:run_on_changes) { guard.run_on_changes "path" }
+  describe "#run_on_modifications" do
+    subject(:run_on_modifications) { guard.run_on_modifications "path" }
 
     it "runs changed paths" do
       described_class.should_receive(:reek).with("path")
 
-      run_on_changes
+      run_on_modifications
     end
   end
 
