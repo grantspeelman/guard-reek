@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Guard::Reek do
   subject { reek }
-  let(:guard) { described_class.new }
+  let(:guard) { described_class.new [], options }
+  let(:options) { {} }
 
   before do
     Guard::Notifier.stub :notify
@@ -28,6 +29,16 @@ describe Guard::Reek do
       described_class.should_receive(:reek).with([])
 
       run_all
+    end
+
+    describe "with run_all disabled" do
+      let(:options) { { run_all: false } }
+
+      it "does not run reek" do
+        described_class.should_not_receive(:reek)
+
+        run_all
+      end
     end
   end
 
