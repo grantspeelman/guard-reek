@@ -11,7 +11,7 @@ module Guard
 
     def initialize(watchers = [], options = {})
       super
-      @options = options
+      @options = { run_all: true }.merge options
       @files = Dir["**/*"]
       @files.select! do |file|
         watchers.reduce(false) { |res, watcher| res || watcher.match(file) }
@@ -24,8 +24,12 @@ module Guard
     end
 
     def run_all
-      UI.info('Guard::Reek is running on all files')
-      self.class.reek @files
+      if @options[:run_all]
+        UI.info('Guard::Reek is running on all files')
+        self.class.reek @files
+      else
+        UI.info('Guard::Reek is not allowed to run on all files')
+      end
     end
 
     def run_on_modifications path
