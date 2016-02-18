@@ -1,18 +1,18 @@
 require 'guard'
-require 'guard/guard'
 
 module Guard
   # Guard::Reek class, it implements an guard for reek task
-  class Reek < Guard
+  class Reek < Plugin
     SUCCESS = ["Passed", { title: "Passed", image: :success }]
     FAILED = ["Failed", { title: "Failed", image: :failed }]
 
     attr_reader :last_result, :options
 
-    def initialize(watchers = [], options = {})
+    def initialize(options = {})
       super
       @options = { run_all: true }.merge options
       @files = Dir["**/*"]
+      watchers = options[:watchers] || []
       @files.select! do |file|
         watchers.reduce(false) { |res, watcher| res || watcher.match(file) }
       end

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Guard::Reek do
   subject { reek }
-  let(:guard) { described_class.new [], options }
+  let(:guard) { described_class.new options }
   let(:options) { {} }
 
   before do
