@@ -20,5 +20,8 @@ Guard.setup(notify: false)
 
 require 'guard/reek'
 
+#make jruby and ruby 2.1 happy on travis
+UncaughtThrowError = ArgumentError unless defined?(UncaughtThrowError)
+
 RSpec.configure do |config|
 end
