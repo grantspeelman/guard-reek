@@ -1,16 +1,8 @@
 language: ruby
 rvm:
-  - 1.9.3
-  - 2.0.0
-  - ruby-head
-  - jruby-19mode
-  - jruby-head
-matrix:
-  allow_failures:
-    - rvm: ruby-head
-    - rvm: jruby-head
-notifications:
-  recipients:
-    - gvillalta99@gmail.com
-  webhooks: https://www.buildheroes.com/api/projects/13bfb2e0028c5838d6fd6a2b6445c4c32a4f26ca/builds
+  - 2.1.9
+  - 2.2.5
+  - 2.3.1
+  - jruby-9.0.5.0
+  - rbx-2
 

@@ -9,7 +9,7 @@ guard :bundler do
   watch('guard-reek.gemspec')
 end
 
-guard :reek  do
+guard :reek do
   watch("lib/guard/reek.rb")
   watch(/^lib\/.*\.rb$/)
 end
