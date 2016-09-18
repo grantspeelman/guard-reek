@@ -11,8 +11,10 @@ SimpleCov.start do
   add_filter '/vendor/bundle/'
 end
 
-SimpleCov.minimum_coverage 98
-SimpleCov.maximum_coverage_drop 2
+if RUBY_PLATFORM != 'java'
+  SimpleCov.minimum_coverage 98
+  SimpleCov.maximum_coverage_drop 2
+end
 
 # Initialize Guard for running tests.
 require 'guard'
