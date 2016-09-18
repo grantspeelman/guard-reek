@@ -1,107 +1,96 @@
 require 'spec_helper'
 
 describe Guard::Reek do
-  subject { reek }
-  let(:guard) { described_class.new options }
-  let(:options) { {} }
+  subject { described_class.new options }
+  let(:options) { { runner: runner, ui: ui } }
+  let(:ui) { class_double('Guard::UI', info: true) }
+  let(:runner) { instance_double('Guard::Reek::Runner') }
 
-  before do
-    Guard::Notifier.stub :notify
+  describe '#start' do
+    def start
+      subject.start
+    end
 
-    Guard::UI.stub :info
-    Guard::UI.stub :error
-  end
-
-  describe "#start" do
-    subject(:start) { guard.start }
-
-    it "runs all" do
-      guard.should_receive :run_all
-
+    it 'runs by default' do
+      expect(runner).to receive(:run).with(no_args)
       start
+    end
+
+    it 'wont run when all_on_start is false' do
+      options[:all_on_start] = false
+      expect(runner).to_not receive(:run)
+      start
+    end
+
+    it 'runs when all_on_start is true' do
+      options[:all_on_start] = true
+      expect(runner).to receive(:run).with(no_args)
+      start
+    end
+
+    it 'raises :task_has_failed if runner throws exception' do
+      allow(runner).to receive(:run).and_raise(RuntimeError)
+      expect { start }.to raise_exception(UncaughtThrowError)
     end
   end
 
-  describe "#run_all" do
-    subject(:run_all) { guard.run_all }
+  describe '#run_all' do
+    def run_all
+      subject.run_all
+    end
 
-    it "runs reek" do
-      described_class.should_receive(:reek).with([])
-
+    it 'runs by default' do
+      expect(runner).to receive(:run).with(no_args)
       run_all
     end
 
-    describe "with run_all disabled" do
-      let(:options) { { run_all: false } }
+    it 'wont run when run_all is false' do
+      options[:run_all] = false
+      expect(runner).to_not receive(:run)
+      run_all
+    end
 
-      it "does not run reek" do
-        described_class.should_not_receive(:reek)
+    it 'runs when all_on_start is true' do
+      options[:run_all] = true
+      expect(runner).to receive(:run).with(no_args)
+      run_all
+    end
 
-        run_all
-      end
+    it 'raises :task_has_failed if runner throws exception' do
+      allow(runner).to receive(:run).and_raise(RuntimeError)
+      expect { run_all }.to raise_exception(UncaughtThrowError)
     end
   end
 
-  describe "#run_on_modifications" do
-    subject(:run_on_modifications) { guard.run_on_modifications "path" }
+  describe '#run_on_additions' do
+    def run_on_additions(paths)
+      subject.run_on_additions(paths)
+    end
 
-    it "runs changed paths" do
-      described_class.should_receive(:reek).with("path")
+    it 'runs by default' do
+      expect(runner).to receive(:run).with(['lib/myfile.rb'])
+      run_on_additions(['lib/myfile.rb'])
+    end
 
-      run_on_modifications
+    it 'raises :task_has_failed if runner throws exception' do
+      allow(runner).to receive(:run).and_raise(RuntimeError)
+      expect { run_on_additions(['lib/myfile.rb']) }.to raise_exception(UncaughtThrowError)
     end
   end
 
-  describe ".reek" do
-    before do
-      described_class.stub(:system)
-      described_class.stub(:command)
-      described_class.stub(:system).and_return(true)
+  describe '#run_on_modifications' do
+    def run_on_modifications(paths)
+      subject.run_on_modifications(paths)
     end
 
-    subject(:reek) { described_class.reek("paths") }
-
-    it "calls the system" do
-      described_class.should_receive(:system)
+    it 'runs by default' do
+      expect(runner).to receive(:run).with(['lib/myfile.rb'])
+      run_on_modifications(['lib/myfile.rb'])
     end
 
-    it "calls the reek command" do
-      described_class.should_receive(:command).with("paths")
-    end
-
-    it "notifies guard the ddsuccess" do
-      described_class.should_receive(:notify)
-    end
-
-    after do
-      reek
-    end
-  end
-
-  describe ".command" do
-    subject(:command) { described_class.command ["path"] }
-    it { should =~ /-n/ }
-    it { should =~ /^reek/ }
-    it { should =~ /path$/ }
-  end
-
-  describe ".notify" do
-    context "well done" do
-      subject(:notify) { described_class.notify true }
-      it "notifies the success to notifier" do
-        Guard::Notifier.should_receive(:notify).with(*Guard::Reek::SUCCESS)
-
-        notify
-      end
-    end
-
-    context "something went wrong" do
-      subject(:notify) { described_class.notify false }
-      it "notifies the failure to notifier" do
-        Guard::Notifier.should_receive(:notify).with(*Guard::Reek::FAILED)
-
-        notify
-      end
+    it 'raises :task_has_failed if runner throws exception' do
+      allow(runner).to receive(:run).and_raise(RuntimeError)
+      expect { run_on_modifications(['lib/myfile.rb']) }.to raise_exception(UncaughtThrowError)
     end
   end
 end

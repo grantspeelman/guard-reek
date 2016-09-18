@@ -1,16 +1,22 @@
-require 'coveralls'
-Coveralls.wear!
+require 'rubygems'
+require 'simplecov'
+SimpleCov.start
 
 ENV['RUBY_ENV'] ||= 'test'
 
-require 'simplecov'
+require 'bundler/setup'
 
 SimpleCov.start do
-  add_group "Libs", "lib"
+  add_group 'Libs', 'lib'
+  add_filter '/vendor/bundle/'
 end
 
 SimpleCov.minimum_coverage 98
 SimpleCov.maximum_coverage_drop 2
+
+# Initialize Guard for running tests.
+require 'guard'
+Guard.setup(notify: false)
 
 require 'guard/reek'
 
