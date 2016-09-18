@@ -22,7 +22,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'reek'
   gem.add_dependency 'guard-compat', '~> 1.1'
 
-  gem.add_development_dependency 'ruby_dep', '~> 1.3.0'
+  gem.add_development_dependency 'listen', '~> 3.0.8'
   gem.add_development_dependency "bundler", "~> 1.3"
   gem.add_development_dependency "guard-rspec"
   gem.add_development_dependency "guard-bundler"
