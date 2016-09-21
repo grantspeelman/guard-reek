@@ -1,6 +1,9 @@
-Guard::Reek  [![Build Status](https://travis-ci.org/gvillalta99/guard-reek.png?branch=master)](https://travis-ci.org/gvillalta99/guard-reek) [![Coverage Status](https://coveralls.io/repos/gvillalta99/guard-reek/badge.png)](https://coveralls.io/r/gvillalta99/guard-reek) [![Code Climate](https://codeclimate.com/github/gvillalta99/guard-reek.png)](https://codeclimate.com/github/gvillalta99/guard-reek) 
-=========================
-TODO: Write a gem description
+[![Gem Version](http://img.shields.io/gem/v/guard-reek.svg)](http://badge.fury.io/rb/guard-reek)
+[![Build Status](https://travis-ci.org/my-grocery-price-book/guard-reek.svg?branch=master)](https://travis-ci.org/my-grocery-price-book/guard-reek)
+
+# guard-reek
+
+**guard-reek** allows you to automatically detect code smells with [Reek](https://github.com/troessner/reek) when files are modified.
 
 ## Installation
 

@@ -5,9 +5,9 @@ module Guard
   # before `class Reek < Guard` in reek.rb
   module ReekVersion
     # http://semver.org/
-    MAJOR = 2
+    MAJOR = 1
     MINOR = 0
-    PATCH = 0
+    PATCH = 1
 
     def self.to_s
       [MAJOR, MINOR, PATCH].join('.')
