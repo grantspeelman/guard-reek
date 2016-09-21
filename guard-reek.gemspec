@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.email         = ['grant@my-grocery-price-book.co.za', 'gvillalta99@gmail.com']
   gem.description   = %q{Guard::Reek automatically runs Reek when files change}
   gem.summary       = %q{Guard plugin for Reek}
-  gem.homepage      = "https://github.com/my-grocery-price-book/guard-reek"
+  gem.homepage      = "https://github.com/grantspeelman/guard-reek"
   gem.license       = "MIT"
 
   gem.files         = `git ls-files`.split($/)
