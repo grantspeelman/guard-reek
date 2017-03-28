@@ -2,8 +2,8 @@
 
 module Guard
   class Reek
-    # This class runs `rubocop` command, retrieves result and notifies.
-    # An instance of this class is intended to invoke `rubocop` only once in its lifetime.
+    # This class runs `reek` command, retrieves result and notifies.
+    # An instance of this class is intended to invoke `reek` only once in its lifetime.
     class Runner
       attr_reader :notifier, :ui, :result
 

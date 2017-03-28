@@ -1,7 +1,7 @@
 # coding: utf-8
 
 module Guard
-  # A workaround for declaring `class RuboCop`
+  # A workaround for declaring `class Reek`
   # before `class Reek < Guard` in reek.rb
   module ReekVersion
     # http://semver.org/
