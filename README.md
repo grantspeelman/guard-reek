@@ -1,5 +1,5 @@
 [![Gem Version](http://img.shields.io/gem/v/guard-reek.svg)](http://badge.fury.io/rb/guard-reek)
-[![Build Status](https://travis-ci.org/my-grocery-price-book/guard-reek.svg?branch=master)](https://travis-ci.org/my-grocery-price-book/guard-reek)
+[![Build Status](https://travis-ci.org/grantspeelman/guard-reek.svg?branch=master)](https://travis-ci.org/grantspeelman/guard-reek)
 
 # guard-reek
 
