@@ -5,3 +5,9 @@ rvm:
   - 2.3.1
   - jruby-9.0.5.0
   - jruby
+env:
+  global:
+    - RUBY_ENV=test
+  matrix:
+    - REEK_VERSION=3.0
+    - REEK_VERSION=4.0
