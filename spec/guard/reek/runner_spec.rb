@@ -3,31 +3,38 @@ require 'spec_helper'
 describe Guard::Reek::Runner do
   subject { Guard::Reek::Runner.new(options) }
   let(:options) { { ui: ui, notifier: notifier } }
+  let(:kernel) { class_double('Kernel', system: true) }
   let(:ui) { class_double('Guard::UI', info: true) }
   let(:notifier) { class_double('Guard::Notifier', notify: true) }
 
   before do
-    allow(subject).to receive(:system)
+    allow(Kernel).to receive(:system)
   end
 
   it 'executes reek' do
-    expect(subject).to receive(:system).with('reek')
+    expect(Kernel).to receive(:system).with('reek')
     subject.run
   end
 
   it 'executes reek with file' do
-    expect(subject).to receive(:system).with('reek', 'test.rb')
+    expect(Kernel).to receive(:system).with('reek', 'test.rb')
     subject.run(['test.rb'])
   end
 
   it 'executes reek when .reek updated' do
-    expect(subject).to receive(:system).with('reek')
+    expect(Kernel).to receive(:system).with('reek')
     subject.run(['.reek'])
+  end
+
+  it 'executes reek with cli options' do
+    options[:cli] = '-s'
+    expect(Kernel).to receive(:system).with('reek', '-s')
+    subject.run
   end
 
   context 'when reek exited with 0 status' do
     before do
-      allow(subject).to receive(:system).and_return(true)
+      allow(Kernel).to receive(:system).and_return(true)
     end
 
     it 'notifies about success' do
@@ -38,7 +45,7 @@ describe Guard::Reek::Runner do
 
   context 'when reek exited with non 0 status' do
     before do
-      allow(subject).to receive(:system).and_return(false)
+      allow(Kernel).to receive(:system).and_return(false)
     end
 
     it 'notifies about failure' do

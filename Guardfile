@@ -4,7 +4,7 @@ guard :rspec, cmd: 'bundle exec rspec', all_on_start: true do
   watch('spec/spec_helper.rb')  { "spec" }
 end
 
-guard :reek do
+guard :reek, cli: '--single-line' do
   watch('config.reek')
   watch(/^lib\/.*\.rb$/)
 end
