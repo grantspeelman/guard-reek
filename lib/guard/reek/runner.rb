@@ -8,7 +8,7 @@ module Guard
       attr_reader :notifier, :ui, :result
 
       def initialize(options)
-        @options = options
+        @cli = options[:cli]
         @notifier = options[:notifier] || Notifier
         @ui = options[:ui] || UI
       end
@@ -17,13 +17,17 @@ module Guard
         paths = [] if paths.include?('.reek')
         ui_message(paths)
 
-        command = ['reek'].concat(paths)
+        command = reek_cmd.concat(paths)
         @result = Kernel.system(*command)
 
         notify_about_result
       end
 
       private
+
+      def reek_cmd
+        ['reek', @cli].compact
+      end
 
       def ui_message(paths)
         if paths.empty?

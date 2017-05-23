@@ -44,7 +44,7 @@ Please read the [Guard usage documentation](https://github.com/guard/guard#readm
 You can pass some options in `Guardfile` like the following example:
 
 ```ruby
-guard :reek, all_on_start: false, run_all: false do
+guard :reek, all_on_start: false, run_all: false, cli: '--single-line --no-wiki-links' do
   # ...
 end
 ```
@@ -54,6 +54,9 @@ end
 ```
 all_on_start: true     # Check all files at Guard startup.
                        #   default: true
+cli: '--single-line'   # Pass arbitrary reek CLI arguments.
+                       # An array or string is acceptable.
+                       #   default: nil
 run_all: true          # Check all files on "Enter"
                        #   default: true
 ```

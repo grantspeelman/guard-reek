@@ -26,6 +26,12 @@ describe Guard::Reek::Runner do
     subject.run(['.reek'])
   end
 
+  it 'executes reek with cli options' do
+    options[:cli] = '-s'
+    expect(Kernel).to receive(:system).with('reek', '-s')
+    subject.run
+  end
+
   context 'when reek exited with 0 status' do
     before do
       allow(Kernel).to receive(:system).and_return(true)
