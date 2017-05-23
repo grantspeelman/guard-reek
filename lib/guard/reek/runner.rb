@@ -18,7 +18,7 @@ module Guard
         ui_message(paths)
 
         command = ['reek'].concat(paths)
-        @result = system(*command)
+        @result = Kernel.system(*command)
 
         notify_about_result
       end
