@@ -1,4 +1,8 @@
 language: ruby
+addons:
+  apt:
+    packages:
+      - haveged
 rvm:
   - 2.1.10
   - 2.2.7
