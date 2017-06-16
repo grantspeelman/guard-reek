@@ -13,12 +13,29 @@ module Guard
         @ui = options[:ui] || UI
       end
 
-      def run(paths = [])
-        paths = [] if paths.include?('.reek')
-        ui_message(paths)
+      # this class decides which files are run against reek
+      class Paths
+        def initialize(paths)
+          @paths = paths
+          @paths = [] if @paths.include?('.reek')
+          @paths = ['*'] if @paths.empty?
+        end
 
-        command = reek_cmd.concat(paths)
-        @result = Kernel.system(*command)
+        def to_s
+          @paths == ['*'] ? 'all' : @paths.to_s
+        end
+
+        def to_ary
+          @paths
+        end
+      end
+
+      def run(paths = [])
+        runner_paths = Paths.new(paths)
+        ui.info("Guard::Reek is running on #{runner_paths}")
+
+        command = reek_cmd.concat(runner_paths)
+        @result = Kernel.system(command.join(' '))
 
         notify_about_result
       end
@@ -27,14 +44,6 @@ module Guard
 
       def reek_cmd
         ['reek', @cli].compact
-      end
-
-      def ui_message(paths)
-        if paths.empty?
-          ui.info('Guard::Reek running on all')
-        else
-          ui.info("Guard::Reek is running on #{paths}")
-        end
       end
 
       def notify_about_result

@@ -12,23 +12,23 @@ describe Guard::Reek::Runner do
   end
 
   it 'executes reek' do
-    expect(Kernel).to receive(:system).with('reek')
+    expect(Kernel).to receive(:system).with('reek *')
     subject.run
   end
 
   it 'executes reek with file' do
-    expect(Kernel).to receive(:system).with('reek', 'test.rb')
+    expect(Kernel).to receive(:system).with('reek test.rb')
     subject.run(['test.rb'])
   end
 
   it 'executes reek when .reek updated' do
-    expect(Kernel).to receive(:system).with('reek')
+    expect(Kernel).to receive(:system).with('reek *')
     subject.run(['.reek'])
   end
 
   it 'executes reek with cli options' do
     options[:cli] = '-s'
-    expect(Kernel).to receive(:system).with('reek', '-s')
+    expect(Kernel).to receive(:system).with('reek -s *')
     subject.run
   end
 
