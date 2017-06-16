@@ -9,49 +9,54 @@ module Guard
 
       def initialize(options)
         @cli = options[:cli]
+        @all = options[:all] || '*'
         @notifier = options[:notifier] || Notifier
         @ui = options[:ui] || UI
       end
 
       # this class decides which files are run against reek
       class Paths
-        def initialize(paths)
+        def initialize(paths, all)
+          @all = all
           @paths = paths
           @paths = [] if @paths.include?('.reek')
-          @paths = ['*'] if @paths.empty?
         end
 
         def to_s
-          @paths == ['*'] ? 'all' : @paths.to_s
+          @paths.empty? ? 'all' : @paths.to_s
         end
 
         def to_ary
-          @paths
+          if @paths.empty?
+            Array(@all)
+          else
+            @paths
+          end
         end
       end
 
       def run(paths = [])
-        runner_paths = Paths.new(paths)
-        ui.info("Guard::Reek is running on #{runner_paths}")
+        result = run_reek_cmd(paths)
 
-        command = reek_cmd.concat(runner_paths)
-        @result = Kernel.system(command.join(' '))
-
-        notify_about_result
-      end
-
-      private
-
-      def reek_cmd
-        ['reek', @cli].compact
-      end
-
-      def notify_about_result
         if result
           notifier.notify('Reek Results', title: 'Passed', image: :success)
         else
           notifier.notify('Reek Results', title: 'Failed', image: :failed)
         end
+      end
+
+      private
+
+      def run_reek_cmd(paths)
+        runner_paths = Paths.new(paths, @all)
+        ui.info("Guard::Reek is running on #{runner_paths}")
+
+        command = reek_cmd.concat(runner_paths)
+        Kernel.system(command.join(' '))
+      end
+
+      def reek_cmd
+        ['reek', @cli].compact
       end
     end
   end

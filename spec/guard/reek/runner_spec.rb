@@ -32,6 +32,18 @@ describe Guard::Reek::Runner do
     subject.run
   end
 
+  it 'executes reek with all options as string' do
+    options[:all] = 'app'
+    expect(Kernel).to receive(:system).with('reek app')
+    subject.run
+  end
+
+  it 'executes reek with all options as array' do
+    options[:all] = %w[app lib]
+    expect(Kernel).to receive(:system).with('reek app lib')
+    subject.run
+  end
+
   context 'when reek exited with 0 status' do
     before do
       allow(Kernel).to receive(:system).and_return(true)

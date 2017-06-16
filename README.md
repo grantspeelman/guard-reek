@@ -54,6 +54,9 @@ end
 ```
 all_on_start: true     # Check all files at Guard startup.
                        #   default: true
+all: 'app lib spec'    # What to run when running all
+                       # An array or string is acceptable.
+                       #   default: *
 cli: '--single-line'   # Pass arbitrary reek CLI arguments.
                        # An array or string is acceptable.
                        #   default: nil

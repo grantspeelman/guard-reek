@@ -1,4 +1,5 @@
 # Change log
 
 ## 1.2.0
-* all run reek uses `*` 
+* `all` defaults to `*`
+* option to set `all` 
