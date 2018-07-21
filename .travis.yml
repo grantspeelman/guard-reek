@@ -17,3 +17,4 @@ env:
   matrix:
     - REEK_VERSION=3.0
     - REEK_VERSION=4.0
+    - REEK_VERSION=5.0
